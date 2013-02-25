@@ -23,14 +23,14 @@
 
 
 # USAGE: 
-# s bookmarkname - saves the curr dir as bookmarkname
-# g bookmarkname - jumps to the that bookmark
-# g b[TAB] - tab completion is available
-# p bookmarkname - prints the bookmark
-# p b[TAB] - tab completion is available
-# d bookmarkname - deletes the bookmark
-# d [TAB] - tab completion is available
-# l - list all bookmarks
+# bm-s bookmarkname - saves the curr dir as bookmarkname
+# bm-g bookmarkname - jumps to the that bookmark
+# bm-g b[TAB] - tab completion is available
+# bm-p bookmarkname - prints the bookmark
+# bm-p b[TAB] - tab completion is available
+# bm-d bookmarkname - deletes the bookmark
+# bm-d [TAB] - tab completion is available
+# bm-l - list all bookmarks
 
 # setup file to store bookmarks
 if [ ! -n "$SDIRS" ]; then
@@ -40,7 +40,7 @@ touch $SDIRS
 
 # save current directory to bookmarks
 function bm-s {
-    check_help $1
+    bm-check_help $1
     _bookmark_name_valid "$@"
     if [ -z "$exit_message" ]; then
         _purge_line "$SDIRS" "export DIR_$1="
@@ -51,21 +51,21 @@ function bm-s {
 
 # jump to bookmark
 function bm-g {
-    check_help $1
+    bm-check_help $1
     source $SDIRS
     cd "$(eval $(echo echo $(echo \$DIR_$1)))"
 }
 
 # print bookmark
 function bm-p {
-    check_help $1
+    bm-check_help $1
     source $SDIRS
     echo "$(eval $(echo echo $(echo \$DIR_$1)))"
 }
 
 # delete bookmark
 function bm-d {
-    check_help $1
+    bm-check_help $1
     _bookmark_name_valid "$@"
     if [ -z "$exit_message" ]; then
         _purge_line "$SDIRS" "export DIR_$1="
@@ -88,7 +88,7 @@ function bm-check_help {
 
 # list bookmarks with dirnam
 function bm-l {
-    check_help $1
+    bm-check_help $1
     source $SDIRS
         
     # if color output is not working for you, comment out the line below '\033[1;32m' == "red"

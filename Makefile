@@ -1,4 +1,4 @@
-INSTALL_DIR=~/bin
+INSTALL_DIR=~/.bash_includes
 
 all:
 	@echo "Pleas run 'make install'"
